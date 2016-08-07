@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sweet# Language Reference</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="SweetSyntax, SweetSharp, Sweet#, C#, syntactic sugar, Unity, Unity3D, Unity 3D" />
+		<meta name="description" content="This page covers the SweetSharp's language reference."/>
+
+		<link rel="stylesheet" type="text/css" href="sweetsyntax_manual_css.css">
+
+		<script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script>
+		<script type="text/javascript">
+		<!--
+		function GetUnity() {
+			if (typeof unityObject != "undefined") {
+				return unityObject.getObjectById("unityPlayer");
+			}
+			return null;
+		}
+		if (typeof unityObject != "undefined") {
+			unityObject.embedUnity("unityPlayer", "SweetSharp_WebPlayer.unity3d", 850, 400);
+			
+		}
+		-->
+		</script>
+	</head>
+
+<body>
+
+	<nav id="sidebar">
+		<h2>Menu</h2>
+		<ul>
+			<li><a href="#live_demo">Live demo</a></li>
+			<li>
+				<a href="#language_reference">Sweet# Language Reference</a>
+
+				<ul>
+					<li><a href="#datatypes">Data types</a></li>
+					<li><a href="#variables">Variables declaration</a></li>
+					<li><a href="#properties">Properties declaration</a></li>
+					<li><a href="#classes">Classes</a></li>
+					<li><a href="#loops">Loops</a></li>
+					<li><a href="#switch">Switch</a></li>
+					<li><a href="#conditions">Conditional structures</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><a href="sweetscript_language_reference.html">SweetScript language reference</a></li>
+		</ul>
+		<ul>
+			<li><a href="#header" title="Go back to the top">Go back to Top</a></li>
+			<li><a href="manual.html">Go back to the SweetSyntax page</a></li>
+		</ul>
+	</nav>
+
+
+	<header id="header">
+		<h1>Sweet# Language Reference</h1>
+	</header>
+
+
+	<section id="manual_content">
+
+		<h2 id="live_demo">Live demo</h2>
+
+			<p>
+				You can write on the left text area then hit the "Convert" button. The converted code will be shown on the right text area.
+			</p>
+
+			<div class="webplayer_content">
+				<div id="unityPlayer">
+					<div class="missing">
+						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+							<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+		<h2 id="language_reference">Language Reference</h2>
+
+			<h3 id="datatypes">Data Types</h3>
+
+				<p>
+					You can use the type "str" instead of "string". <br>
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>		
+<pre>
+str aVar = "";
+void AMethod (str aParam) {}
+</pre>
+					</td>
+					<td>
+<pre>
+string aVar = "";
+void AMethod (string aParam) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="variables">Variable declaration</h3>
+
+				<p>
+					New object instanciation syntax :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template :
+// name new Class
+// name new Class(params)
+
+public anObject new Hastable (infos);
+anotherObject new Dictionary&lt;str, List&lt;bool&gt;&gt;; 
+</pre>
+					</td>
+					<td>
+<pre>
+public Hastable anObject = new Hastable (infos);
+Dictionary&lt;string, List&lt;bool&gt;&gt; anotherObject = new Dictionary&lt;string, List&lt;bool&gt;&gt;();
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="properties">Properties declaration</h3>
+
+				<h4>Default accessors</h4>
+
+				<p>
+					The properties default accessors got a simpler syntax. Note that the semicolon may be omitted.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// read/write
+string aProp getset;
+
+// read-only
+str aProp get ;
+
+// write-only
+string aProp set
+</pre>
+						</td>
+						<td>
+<pre>
+// read/write
+string aProp { get; set; }
+
+// read-only
+string aProp { get; }
+
+// write-only
+string aProp { set; }
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="classes">Classes</h3>
+
+				<p>
+					You can use the keywords "constructor" and "parent" with or without parenthesis, to set or call a constructor of the current class or to call a constructor of the parent class. <br>
+					When calling another constructor (from the same clas or from the parent class), you can use the keyword "callfirst" instead of a colon. <br>
+					In child classes only, you can also use the keyword "parent" instead of "base" when accessing members or methods of the parent class. <br>
+					<br>
+					It also works in structs.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+class Child : Parent {
+	
+	// some examples :
+		// default constructor
+		// that call a parent constructor
+		constructor callfirst parent (something) {
+			// works outside a constructor, but only in classes that inherits from a parent
+			parent.DoSomething ();
+		}
+
+		// another constructor of this class
+		// that calls the default parent constructor
+		constructor (string param) : parent {}
+
+		// and yet another one
+		// that call another constructor of this class
+		constructor (str param1, bool param2) callfirst constructor (param0)
+		{}
+
+
+		// and again
+		// that call the defaul constructor of this class
+		constructor (str param1, bool param2) 
+			: constructor ()
+		{}
+
+
+	// a mix of other possible expressions :
+		public Child () : parent (something) {} 
+		constructor : parent () {}
+		constructor (something) : parent {}
+
+		constructor callfirst parent (something) {}
+		public Child () callfirst parent () {}
+		constructor callfirst parent {}
+
+		constructor : base (something) {}
+		constructor : base () {}
+		public Child (something) : base {}
+
+		constructor (something) callfirst base (something) {}
+		constructor callfirst base () {}
+		constructor callfirst base {}
+
+		public Child (something) : constructor (something) {}
+		constructor (something) : constructor () {}
+		constructor : constructor {}
+
+		constructor callfirst constructor (something) {}
+		public Child () callfirst constructor () {}
+		constructor callfirst constructor {}
+
+		constructor : this (something) {}
+		constructor : this () {}
+		public Child () : this {}
+		
+		constructor callfirst this (something) {}
+		constructor callfirst this () {}
+		constructor(something) callfirst this {}
+}
+
+</pre>
+						</td>
+						<td>
+<pre>
+class Child extends Parent {
+	
+	// some example :
+		// default constructor
+		// that call a parent constructor
+		public Child() : base (something) {
+			// works outside a constructor, but only in classes that inherits from a parent
+			base.DoSomething ();
+		}
+
+		// another constructor of this class
+		// that calls the default parent constructor
+		public Child (string param) : base() {}
+
+		// and yet another one
+		// that call another constructor of this class
+		public Child (string param1, bool param2) : this (param0)
+		{}
+
+
+		// and again
+		// that call the defaul constructor of this class
+		public Child (string param1, bool param2) 
+			: this ()
+		{}
+
+
+	// all possible expressions :
+		public Child () : base (something) {} 
+		public Child() : base () {}
+		public Child (something) : base() {}
+
+		public Child() : base (something) {}
+		public Child () : base () {}
+		public Child() : base() {}
+
+		public Child() : base (something) {}
+		public Child() : base () {}
+		public Child (something) : base() {}
+
+		public Child (something) : base (something) {}
+		public Child() : base () {}
+		public Child() : base() {}
+
+		public Child (something) : this (something) {}
+		public Child (something) : this () {}
+		public Child() : this() {}
+
+		public Child() : this (something) {}
+		public Child () : this () {}
+		public Child() : this() {}
+
+		public Child() : this (something) {}
+		public Child() : this () {}
+		public Child () : this() {}
+		
+		public Child() : this (something) {}
+		public Child() : this () {}
+		public Child(something) : this() {}
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+		
+			
+			<h3 id="loops">Loops</h3>
+
+				<p>
+					For all "for" type loops below, you can always : 
+				</p>
+
+				<ul>
+					<li>use "for" or "foreach" as keyword</li>
+					<li>omit the parenthesis</li>
+				</ul>
+
+				<p>
+					The generic for(;;) loop got a very human friendly syntax with several variants :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// longest syntax :
+// foreach ([type] [name] from [from] to [to] step [step]) {}
+// is converted into :
+// for ([type] [name] = [from]; [name]&lt;=[to]; [name]+=[step]) {}
+
+// shotest syntax :
+// for [name] to [to] {}
+// default values : [type] is int, [from] = 0, [step] = 1
+// is converted into :
+// for (int [name] = 0; [name]&lt;=[to]; [name]+=1) {}
+
+foreach (int i from 0 to 10 step 2) {}
+
+for float j from -5.2f to 52
+	
+foreach k to aValue step -2
+{}
+</pre>
+						</td>
+						<td>
+<pre>
+for (int i = 0; i&lt;=10; i+=2) {}
+
+for (float j = -5.2f; j&lt;=52; j+=1)
+	
+for (int k = 0; k&lt;=aValue; k+=-2)
+{}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Note that if [from] or [to] are a variable instead of an hardcoded value, the condition for the loop to run will always be "[from] &lt;= [to]". <br>
+					<br>
+					You can use a Boo-like syntax tat use a "range" iterator : <br>
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template : 
+// for (int i in range([from], [to], [step]))
+// is equivalent to 
+// for (int i = [from], i&lt;[to]; i+=[step])
+// [from] and [step] are optionnal, their default value are 0 and +1, respectively.
+// note that the loop never reach [to]
+
+foreach (i in range (10,20,2))
+
+for float i in range(10.0f,20.5f) {}
+</pre>
+						</td>
+						<td>
+<pre>
+for (int i = 10; i&lt;20; i+=2)
+
+for (float i = 10.0f; i&lt;20.5f; i+=1) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+				
+				<p>
+					Note that if [from] or [to] are a variable instead of an hardcoded value, the condition for the loop to run will always be "[from] &lt;= [to]". <br>
+					<br>
+					for(;;) loop with index-based collections or arrays got a nice synax too :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// foreach index [name][ = startIndex] in [array] {}
+// foreach index [name][ = startIndex] in col [collection] {}
+// you can also use "collection" instead of "col"
+
+foreach (index i in anArray)
+	someVariable = anArray[i];
+
+for (index i = anIndex in col aCollection)
+{}
+
+foreach index i=1 in collection aCollection {}
+</pre>
+						</td>
+						<td>
+<pre>
+for (int i = 0; i&lt;anArray.Length; i++)
+	someVariable = anArray[i];
+
+for (int i = anIndex; i&lt;aCollection.Count; i++)
+{}
+
+for (int i=1; i&lt;aCollection.Count; i++) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					The index [name] will always be an int. <br>
+					<br>
+					At last, remember that you can use "for" or "foreach" and omit parenthesis with "foreach(in)" loop too.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+for type entry in aCollection
+</pre>
+						</td>
+						<td>
+<pre>
+foreach (type entry in aCollection)
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="switch">Switch</h3>
+
+				<p>
+					The switch structure got a new syntax with the "if" keyword instead of "case" and "else" instead of "default". Plus, there is no more need to add the "break;" statement at the end of a case :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// you may keep the parenthesis around
+// the variable name if you want
+
+switch someVariable {
+	if 0: ...;
+	if 1: 
+		...;
+		...;
+	if Enum.Option: ...;
+
+	else: "meh wathever";
+}
+</pre>
+						</td>
+						<td>
+<pre>
+switch (someVariable) {
+	case 0: ...; break;
+	case 1: 
+		...;
+		...; break;
+	case Enum.Option: ...; break;
+
+	default: "meh wathever";
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="conditions">Conditional structures</h3>
+				
+				<h4>Operators "and", "or", "not", "is" and "isnot"</h4>
+
+				<p>
+					You can use the follwing operators : "and", "or", "not", "is" and "isnot" instead of "&&", "||", "!", "==" and "!=", respectively. <br> You can use them with "if", "while" and "for(;;)" :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+if (sweetScript is "useful" and youLikeIt isnot false)
+
+while (not doStopLoop)
+</pre>
+						</td>
+						<td>
+<pre>
+if (sweetScript == "useful" && youLikeIt != false)
+
+while (! doStopLoop)
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<h4>Operators "isoneof" and "isnotoneof"</h4>
+
+				<p>
+					These operators allow you to check if a variable is equal or different to a finite set of values :
+				</p>
+
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template :
+// variableName isoneof value1, value2 ....
+
+if (name isoneof "SweetSharp", "SweetSyntax", "C#")
+
+if (name isnotoneof otherValue, 3.5, false)
+</pre>
+						</td>
+						<td>
+<pre>
+if (name == "SweetSharp" || name ==  "SweetSyntax" || name ==  "C#")
+
+if (name != otherValue && name !=  3.5 && name !=  false)
+</pre>
+						</td>
+					</tr>
+				</table>
+
+			<!--
+			<h3 id="conditions">Helper methods</h3>
+
+				<p>
+					Helper methods are aliases that you can set for methods from the Unity or Mono API.
+					<br>
+					To set up aliases, locate the file "SweetSharpHelperMethods.txt" in your project folder (should be in "Assets/SweetSharpForUnity") and follow the instruction below (you should find the same within the file). <br>
+					<br>
+
+				</p>
+			<pre class="code">
+			// this is a comment, it is ignored
+			// empty lines are also ignored
+
+			// to set an alias for a method, just follow this template :
+			// [name you want] = [original name]
+
+			// ie :
+			LogError = Debug.LogError
+			GLButton = GUILayout.Button
+			GLMaxWidth = GUILayout.MaxWidth
+			FileExists = File.Exists
+			</pre>
+
+				<table class="after-before-table">
+					<tr>
+						<th>Sweet#</th>
+						<th>C#</th>
+					</tr>
+					<tr>
+						<td>
+			<pre>
+			if (GLButton ("Log Error")) {
+				LogError "Something is wrong";
+			}
+
+			// you can also use the aliases without the parenthesis
+			if (FileExists path)
+			</pre>
+						</td>
+						<td>
+			<pre>
+			if (teaScript == "useful" && meHappy != false)
+
+			while (! doStopLoop)
+			</pre>
+						</td>
+					</tr>
+				</table>
+			-->
+
+
+		<footer>
+			<br><br>
+			<p>
+				<a href="#header" title="Go back to the top">Go back to Top</a> | 
+				<a href="../../../en" title="Go back to the main website">Go back to Florent-Poujol.fr/en</a>
+			</p>
+		</footer>
+
+	</section> <!-- end #manual_content -->
+</body>
+</html>

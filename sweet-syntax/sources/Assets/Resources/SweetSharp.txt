@@ -1,0 +1,155 @@
+/*****************************************
+		Sweet# example file
+*****************************************/
+
+class SweetSharp {
+	
+	// you can use "str" instead of "string"
+	str aVar = "";
+	void AMethod (str aParam) {}
+
+	// new class instanciation syntax
+	public anObject new Hashtable(infos);
+	anotherObject new Dictionary<str, List<bool>>; 
+
+
+	// properties declaration with default getter/setter
+		// read/write
+		string aProp getset;
+
+		// read-only
+		str aProp2 get ;
+
+		// write-only
+		string aProp3 set
+
+	// method declaration
+		
+}
+
+interface Int {}
+
+
+class Child : SweetSharp, Int, Int2 {
+
+	// default constructor
+	// that call a parent constructor
+	constructor callfirst parent (something) {
+		// works outside a constructor, but only in classes that inherits from a parent
+		parent.DoSomething ();
+	}
+
+	// another constructor of this class
+	// that calls the default parent constructor
+	constructor (string param) : parent {}
+
+	// and yet another one
+	// that call another constructor of this class
+	constructor (str param1, bool param2) callfirst constructor (param0)
+	{}
+
+
+	// and again
+	// that call the defaul constructor of this class
+	constructor (str param1, bool param2) 
+		: constructor ()
+	{}
+
+
+	// all possible expressions :
+		// it also works with "public Child ()" instead of "constructor"
+		public Child () : parent (something) {} 
+		constructor : parent () {}
+		constructor (something) : parent {}
+
+		constructor callfirst parent (something) {}
+		public Child () callfirst parent () {}
+		constructor callfirst parent {}
+
+		constructor : base (something) {}
+		constructor : base () {}
+		public Child (something) : base {}
+
+		constructor (something) callfirst base (something) {}
+		constructor callfirst base () {}
+		constructor callfirst base {}
+
+		public Child (something) : constructor (something) {}
+		constructor (something) : constructor () {}
+		constructor : constructor {}
+
+		constructor callfirst constructor (something) {}
+		public Child () callfirst constructor () {}
+		constructor callfirst constructor {}
+
+		constructor : this (something) {}
+		constructor : this () {}
+		public Child () : this {}
+		
+		constructor callfirst this (something) {}
+		constructor callfirst this () {}
+		constructor(something) callfirst this {}
+
+
+
+	void Loops () {
+		// generic for(;;) loop 
+		// (for|foreach) [(] [var] <varName>[: type] [from <value>] to <value> [step <value>] [)]
+		// the loop : for (var i: int = 0; i<=10; i++)
+		// can be written :
+		// "for i to 10"  or  "foreach (var i: int from 0 to 10 step 1)"
+		foreach (int i from 50 to 10 step -2) {}
+
+		for float j from -5.2f to 52
+			
+		foreach k to aValue step 2
+		{}
+
+
+		// boo-like syntax
+		foreach (i in range (30,20,2))
+
+		for float i in range(10.0,aVar) {}
+
+
+		// for(;;) loop with arrays (index will always be an int)
+		foreach (index i in anArray)
+			someVariable = anArray[i];
+
+		for (index i = anIndex in col aCollection)
+		{}
+
+		foreach index i=1 in collection aCollection {}
+			
+
+		// foreach( in ) loop with arrays/collections
+		for type entry in aCollection
+			
+	}
+
+
+	void Conditions () {
+		// switch
+		switch someVariable {
+			if 0: ...;
+			if 1: 
+				...;
+				...;
+			if Enum.Option: ...; 
+ 
+			else: "meh wathever";
+		}
+
+		// new operators and, or, not, is isnot
+		if (teaScript is "great" and youLikeIt isnt false or isTreu)
+
+		while (not doStopLoop)
+		{}
+
+		// isoneof and isnotoneof keyword
+		if (name isoneof "TeaScript", "Coffee Script", "UnityScript") {}
+
+		if (name isnotoneof otherValue, 3.5, false)
+		{} 	
+	}
+}

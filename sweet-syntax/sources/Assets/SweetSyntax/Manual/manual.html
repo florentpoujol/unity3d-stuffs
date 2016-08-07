@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SweetSyntax Manual | Florent-poujol.fr</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="SweetSyntax, SweetScript, SweetSharp, UnityScript, C#, syntactic sugar, Unity, Unity3D, Unity 3D" />
+		<meta name="description" content="This manual explains how to set up and use the SweetSyntax extension for Unity3D."/>
+
+		<link rel="stylesheet" type="text/css" href="sweetsyntax_manual_css.css">
+	</head>
+
+<body>
+	<nav id="sidebar">
+		<h2>Menu</h2>
+
+		<ul>
+			<li><a href="#what_is_sweetsyntax">What is SweetSyntax ?</a></li>
+			<li><a href="#how_to_setup">How to set it up ?</a></li>
+			<li><a href="#how_it_works">How does it works ?</a></li>
+			<li><a href="#languages_references">Languages references</a></li>
+		</ul>
+		<ul>
+			<li><a href="sweetscript_language_reference.html"><strong>SweetScript language reference</strong></a></li>
+			<li><a href="sweetsharp_language_reference.html"><strong>Sweet# language reference</strong></a></li>
+		</ul>
+		<ul>
+			<li><a href="#header" title="Go back to the top">Go back to Top</a></li>
+		</ul>
+	</nav>
+
+
+	<header id="header">
+		<h1>SweetSyntax manual</h1>
+	</header>
+
+
+	<section id="manual_content">
+
+
+		<h2 id="what_is_sweetsyntax">What is SweetSyntax ?</h2>
+	
+			<p>
+				SweetSyntax is an extension for the <a href="http://unity3d.com" title="Go to the Unity3D website" >Unity3D</a> engine that aims to sweeten the syntax of <strong>UnityScript</strong> and <strong>C#</strong> mostly by providing <a href="http://en.wikipedia.org/wiki/Syntactic_sugar" title="Go read the Wikipedia entry for Syntactic sugar"><strong>syntactic sugars</strong></a>. <br>
+				<br>
+				SweetSyntax allows you to use two pseudo language : <strong>SweetScript</strong> and <strong>Sweet#</strong> that are overlays of UnityScript and C#, respectively. <br>
+				<br>
+				More precisely, SweetSyntax aims to provide a syntax :
+			</p>
+
+			<ul>
+				<li>more human-friendly, using actual words instead of expressions (ie : "and" instead of "&&").</li>
+				<li>more lightweight, and less verbose. It allows to omit unnecessary code, or provide shortcuts for character-heavy expression (ie : a readonly property in SweetScript : <em>prop PropertyName get;</em>).</li>
+				<li>less error-prone. It allows beginners (and more experienced coder as well !) to focus on the logic of the code more than on syntactic bug-generating details.</li>
+			</ul>
+
+
+		<h2 id="how_it_works">How does it works ?</h2>
+
+			<p>
+				You write your code in .sweetscript and/or .sweetsharp scripts instead of .js and .cs scripts, respectively. <br>
+				Those scripts will be converted to .js and .cs by the extension whenever one is created or modified. <br>
+				<br>
+				SweetScript and Sweet# <strong>are not completely new languages</strong>, they are UntyScript and C#, plus some optionnal sugars. Only those sweet expressions will be converted to their regular equivalent if they are found in the scripts, so you can always use the regular UntyScript and C# syntax within our SweetScript and Sweet# scripts. <br>
+			</p>
+
+
+		<h2 id="how_to_setup">How to set it up ?</h2>
+
+			<p>
+				<a href="SweetSyntax.unitypackage" title="Download SweetSyntax.unitypackage">Downloaded SweetSyntax.unitypackage</a> (or <a href="https://github.com/florentpoujol/SweetSyntax">get the source</a> on GitHub) and import it in your project. <br>
+				<br>
+				Just put the "SweetSyntax" folder anywhere in your project's Assets folder. <br>
+				<br>
+				Open the extension by clicking "SweetSyntax" in the "Window" menu. As you must keep the extension running at all times, pin the tab somewhere and keep the focus on it (no side tab). 
+			</p>
+
+
+		<h2 id="languages_references">Languages references</h2>
+
+			<p>
+				<a href="sweetscript_language_reference.html">Go to the <strong>SweetScript</strong> language reference.</a><br>
+				<br>
+				<a href="sweetsharp_language_reference.html">Go to the <strong>Sweet#</strong> language reference.</a>
+			</p>
+
+
+		<footer>
+
+			<br><br>
+			<p>
+				<a href="#header" title="Go back to the top">Go back to Top</a> | 
+				<a href="../../../en" title="Go back to Florent-Poujol.fr/en">Go back to Florent-Poujol.fr/en</a>
+			</p>
+
+		</footer>
+
+	</section> <!-- end #manual_content -->
+
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-9211759-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+
+</body>
+</html>

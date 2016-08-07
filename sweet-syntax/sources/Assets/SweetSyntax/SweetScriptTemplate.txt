@@ -1,0 +1,11 @@
+#pragma strict
+
+
+func Start {
+	
+}
+
+
+func Update {
+	
+}

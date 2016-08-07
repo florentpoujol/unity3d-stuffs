@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SweetScript Language Reference</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="SweetSyntax, SweetScript, UnityScript, syntactic sugar, Unity, Unity3D, Unity 3D" />
+		<meta name="description" content="This page covers the SweetScript's language reference."/>
+
+		<link rel="stylesheet" type="text/css" href="sweetsyntax_manual_css.css">
+
+		<script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script>
+		<script type="text/javascript">
+		<!--
+		function GetUnity() {
+			if (typeof unityObject != "undefined") {
+				return unityObject.getObjectById("unityPlayer");
+			}
+			return null;
+		}
+		if (typeof unityObject != "undefined") {
+			unityObject.embedUnity("unityPlayer", "SweetScript_WebPlayer.unity3d", 850, 400);
+			
+		}
+		-->
+		</script>
+	</head>
+
+<body>
+
+	<nav id="sidebar">
+		<h2>Menu</h2>
+		<ul>
+			<li><a href="#live_demo">Live demo</a></li>
+			<li>
+				<a href="#language_reference">SweetScript Language Reference</a>
+
+				<ul>
+					<li><a href="#datatypes">Data types</a></li>
+					<li><a href="#variables">Variables declaration</a></li>
+					<li><a href="#properties">Properties declaration</a></li>
+					<li><a href="#methods">Methods declaration</a></li>
+					<li><a href="#classes">Classes</a></li>
+					<li><a href="#structures">Structures</a></li>
+					<li><a href="#loops">Loops</a></li>
+					<li><a href="#switch">Switch</a></li>
+					<li><a href="#conditions">Conditional structures</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><a href="sweetsharp_language_reference.html">Sweet# language reference</a></li>
+		</ul>
+		<ul>
+			<li><a href="#header" title="Go back to the top">Go back to Top</a></li>
+			<li><a href="manual.html">Go back to the SweetSyntax page</a></li>
+		</ul>
+	</nav>
+
+
+	<header id="header">
+		<h1>SweetScript Language Reference</h1>
+	</header>
+
+
+	<section id="manual_content">
+
+		<h2 id="live_demo">Live demo</h2>
+
+			<p>
+				You can write on the left text area then hit the "Convert" button. The converted code will be shown on the right text area.
+			</p>
+
+			<div class="webplayer_content">
+				<div id="unityPlayer">
+					<div class="missing">
+						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+							<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+		<h2 id="language_reference">Language Reference</h2>
+
+			<h3 id="datatypes">Data Types</h3>
+
+				<p>
+					You can use the types "string" or "str" instead of "String" and "bool" instead of "boolean". <br>
+					<br>
+					You can use generic collections with a C#-like syntax (without the dot before an opening chevron and without the obligatory space between two closing chevron) :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>		
+<pre>
+var aVar: str = "";
+var dico = Dictionary&lt;string, List&lt;bool&gt;&gt;();
+</pre>
+					</td>
+					<td>
+<pre>
+var aVar: String = "";
+var dico = Dictionary.&lt;String, List.&lt;boolean&gt; &gt;();
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="variables">Variable declaration</h3>
+
+				<p>
+					You can declare character litteral like in C# : the value must be only one single character surounded by single quotation marks. <br>
+					Note that it works only for variable declaration, one single character surounded by single quotation marks is still considered of type String everywhere else.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+var aSingleCharacter = 'a';
+var otherSingleCharacter: char = 'b';
+</pre>
+						</td>
+						<td>
+<pre>
+var aSingleCharacter: char = 'a'[0];
+var otherSingleCharacter: char = 'b'[0];
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					You can set multiple variables of the same type in a single	line, while setting their value. Setting the type of the variables is mandatory.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template :
+// var: type variable1, variable2, variable3=value; ...
+
+var: bool isThisReal, doThisWorks = true, isntThisUseful;
+</pre>
+						</td>
+						<td>
+<pre>
+var isThisReal: boolean;
+var doThisWorks: boolean = true;
+var isntThisUseful: boolean;
+</pre>
+						</td>
+					</tr>
+				</table>
+
+					<p>
+						New object instanciation syntax.
+					</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template :
+// var name new Class
+// var name new Class(params)
+
+var table new Hastable (someDictionary);
+var dico new Dictionary&lt;String, List&lt;boolean&gt;&gt;;
+</pre>
+					</td>
+					<td>
+<pre>
+var table: Hashtable = new Hashtable(someDictionary);
+var dico: Dictionary.&lt;String, List.&lt;boolean&gt; &gt; = new Dictionary.&lt;String, List.&lt;boolean&gt; &gt;(); 
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="properties">Properties declaration</h3>
+
+				<h4>Default read-write, read-only and write-only accessors</h4>
+
+				<p>
+					The usual convention want's that the default accessors get or set a member of the class which name is the same of the property's, with the first letter lowercase (the property's first letter must then be uppercase).
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// defaults get/set accessors
+double health = 0.0;
+
+prop Health;
+
+prop Health: double;
+
+
+// default get accessors (read-only property)
+int mana;
+
+prop Mana get;
+
+prop Mana: int get;
+
+
+// default set accessors
+string iDontWantToBeRead = "";
+
+prop IDontWantToBeRead set;
+
+prop IDontWantToBeRead: String set;
+</pre>
+						</td>
+						<td>
+<pre>
+// defaults get/set accessors
+health: double = 0.0;
+
+function get Health() { return health; }
+function set Health(value) { health = value; }
+
+function get Health(): double { return health; }
+function set Health(value: double) { health = value; }
+
+
+// default get accessors (read-only property)
+mana: int;
+
+function get Mana() { return mana; }
+
+function get Mana(): int { return mana; }
+
+
+// default set accessors
+iDontWantToBeRead: string = "";
+
+function set IDontWantToBeRead(value) { iDontWantToBeRead = value; }
+
+function set IDontWantToBeRead(value: String) { iDontWantToBeRead = value; }
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<h4>Custom accessors</h4>
+
+				<p>
+					To write your own accessors, you must use a C#-like syntax :
+				</p>
+
+					<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+prop Health {
+	// default getter. Note that there is no semicolon
+	get 
+
+	set { // custom setter
+		if (value > maxHealth)
+			value = maxHealth;
+		else if (value &lt; 0)
+			value = 0;
+	}
+}
+
+prop PlayerAltitude: float {
+	// custom getter
+	get {
+		return Vector3.Distance (transform.position, ground.transform.position);
+	}
+}
+
+property PlayerStringId {
+	set { // PlayerType = "Class Pseudo";
+		string[] strings = value.Split (' ');
+		m_playerClass = strings[0];
+		m_playerName = strings[1];
+	}
+
+	get {
+		return m_playerClass+" "+m_playerName;
+	}
+}
+</pre>
+						</td>
+						<td>
+<pre>
+function get Health() { return health; }
+function set Health(value) { // custom setter
+	if (value > maxHealth)
+		value = maxHealth;
+	else if (value &lt; 0)
+		value = 0;
+}
+
+
+function get PlayerAltitude(): float {
+	return Vector3.Distance (transform.position, ground.transform.position);
+}
+
+
+function get PlayerStringId() {
+	return m_playerClass+" "+m_playerName;
+}
+function set PlayerStringId(value) { // PlayerType = "Class Pseudo";
+	string[] strings = value.Split (' ');
+	m_playerClass = strings[0];
+	m_playerName = strings[1];
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+			<hr>
+
+			<h3 id="methods">Method declaration</h3>
+
+				<p>
+					You can use the "func" keyword instead of "function" and the parenthesis are optionnals if there is no parameters. <br>
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+func Start () {}
+
+func Update {}
+
+func GetMeSomething: string {
+	return "Here, take a piece of SweetScript, it's really sweet !";
+}
+</pre>
+			</td>
+			<td>
+<pre>
+function Start () {}
+
+function Update() {}
+
+function GetMeSomething(): String {
+	return "Here, take a piece of SweetScript, it's really sweet !";
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+			<hr>
+
+			<h3 id="classes">Classes</h3>
+
+				<p>
+					You can use the keywords "constructor" and "parent" with or without parenthesis, to set or call a constructor of the current class or to call a constructor of the parent class. <br>
+					In child classes only, you can also use the keyword "parent" instead of "super" when accessing members or methods of the parent class.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+class Child extends Parent {
+
+	// default constructor
+	constructor {
+		// default parent's constructor
+		parent;
+		parent ( something) ;
+
+		// works outside a constructor, but only in classes that inherits from a parent
+		parent.DoSomething ();
+	}
+
+	// another constructor of this class
+	constructor (name1) {}
+
+	// and yet another one
+	constructor (name1: string, name2: bool) {
+		// call another construtcor in this class
+		constructor (name1);
+
+		// call the default constructor :
+		constructor;
+		constructor ();
+	}
+}
+</pre>
+						</td>
+						<td>
+<pre>
+class Child extends Parent {
+
+	// default constructor
+	public function Child() {
+		// call to one of the parent constructor :
+
+		// default parent's constructor
+		super();
+		super ( something) ;
+
+		// works outside a constructor, but only in classes that inherits from a parent
+		super.DoSomething ();
+	}
+
+	// another constructor of this class
+	public function Child (name1: String) {}
+
+	// and yet another one
+	public function Child (name1: String, name2: boolean) {
+		// call another construtcor in this class
+		Child (name1);
+
+		// call the default constructor :
+		Child();
+		Child ();
+	}
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					
+			<hr>
+
+			<h3 id="structures">Structures</h3>
+
+				<p>
+					You can create a struct with the "struct" keyword.
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+struct aStruct {
+	// you can use the "constructor" keyword, just like in classes
+	constructor (name1: string) {}
+
+	constructor (name1: string, name2: bool) {
+		constructor (name1);
+	}
+}
+</pre>
+						</td>
+						<td>
+<pre>
+class aStruct extends System.ValueType{
+	// you can use the "constructor" keyword, just like in classes
+	public function aStruct (name1: String) {}
+
+	public function aStruct (name1: String, name2: boolean) {
+		aStruct (name1);
+	}
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="loops">Loops</h3>
+
+				<p>
+					For all "for" type loops below, you can always : 
+				</p>
+
+				<ul>
+					<li>use "for" or "foreach" as keyword</li>
+					<li>omit the parenthesis</li>
+					<li>omit the "var" keyword</li>
+				</ul>
+
+				<p>
+					The generic for(;;) loop got a very human friendly syntax with several variants :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// longest syntax :
+// foreach [name]: [type] from [from] to [to] step [step] {}
+// is converted into :
+// for (var [name]: [type] = [from]; [name]&lt;=[to]; [name]+=[step]) {}
+
+// shotest syntax :
+// for [name] to [to] {}
+//  default values : [type] is int, [from] = 0, [step] = 1
+// is converted into :
+// for (var [name]: int = 0; [name]&lt;=[to]; [name]+=1) {}
+
+foreach (i from 0 to 10 step 2) {}
+
+for j: float from -5.2 to 52
+	
+foreach var k: int to i step -2
+{}
+</pre>
+						</td>
+						<td>
+<pre>
+for (var i: int = 0; i<=10; i+=2) {}
+
+for (var j: float = -5.2; j<=52; j+=1)
+	
+for (var k: int = 0; k<=i; k+=-2)
+{}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Note that [from] can't be strictly superior to [to] since the condition for the loop to run is always that [name] is inferior or equal to [to]. <br>
+					If [from] is strictly superior to [to], the loop won't run because the condition is false in the first place, but it won't throw any errors. <br>
+					<br>
+					Note also that from Unity 3.0, you can use a Boo-like syntax using the Range() iterator : <br>
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template : 
+// for (var i in range([from], [to], [step]))
+// is equivalent to 
+// for (var i = [from], i&lt;[to]; i+=[step])
+// [from] and [step] are optionnal, their default value are 0 and +1, respectively.
+// note that the loop never reach [to]
+
+foreach var i in range (10,20,2)
+
+for (i: float in range(10.0,20.5)) {}
+</pre>
+						</td>
+						<td>
+<pre>
+for (var i: int in range (10,20,2))
+
+for (var i: float in range(10.0,20.5)) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+				
+				<p>
+					for(;;) loop with index-based collections or arrays got a nice synax too :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// foreach index [name] in [array] {}
+// foreach index [name] in col [collection] {}
+// you can also use "collection" instead of "col"
+
+foreach (index i in anArray)
+	someVariable = anArray[i];
+
+for (index i in col aCollection)
+{}
+
+foreach index i in collection aCollection {}
+</pre>
+						</td>
+						<td>
+<pre>
+for (var i: int = 0; i&lt;anArray.length; i++)
+	someVariable = anArray[i];
+
+for (var i: int = 0; i&lt;aCollection.Count; i++)
+{}
+
+for (var i: int = 0; i&lt;aCollection.Count; i++) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					The index [name] will always be an int. <br>
+					<br>
+					At last, SweetScript brigns a small shortcut for the "for(in)" loop :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+for entry in aCollection{}
+foreach entry: type in aCollection {}
+</pre>
+						</td>
+						<td>
+<pre>
+for (var entry in aCollection){}
+for (var entry: type in aCollection) {}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="switch">Switch</h3>
+
+				<p>
+					The switch structure got a new syntax with the "if" keyword instead of "case" and "else" instead of "default". Plus, there is no more need to add the "break;" statement at the end of a case :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// you may keep the parenthesis around
+// the variable name if you want
+
+switch someVariable {
+	if 0: ...;
+	if 1: 
+		...;
+		...;
+	if Enum.Option: ...;
+
+	else: "meh wathever";
+}
+</pre>
+						</td>
+						<td>
+<pre>
+switch (someVariable) {
+	case 0: ...; break;
+	case 1: 
+		...;
+		...; break;
+	case Enum.Option: ...; break;
+
+	default: "meh wathever";
+}
+</pre>
+						</td>
+					</tr>
+				</table>
+
+
+			<h3 id="conditions">Conditional structures</h3>
+				
+				<h4>Operators "and", "or", "not", "is" and "isnot"</h4>
+
+				<p>
+					You can use the follwing operators : "and", "or", "not", "is" and "isnot" instead of "&&", "||", "!", "==" and "!=", respectively. <br> You can use them with "if", "while" and "for(;;)" :
+				</p>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+if (sweetScript is "useful" and youLikeIt isnot false)
+
+while (not doStopLoop)
+</pre>
+						</td>
+						<td>
+<pre>
+if (sweetScript == "useful" && youLikeIt != false)
+
+while (! doStopLoop)
+</pre>
+						</td>
+					</tr>
+				</table>
+
+				<h4>Operators "isoneof" and "isnotoneof"</h4>
+
+				<p>
+					These operators allow you to check if a variable is equal or different to a finite set of values :
+				</p>
+
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+<pre>
+// template :
+// variableName isoneof value1, value2 ....
+
+if (name isoneof "SweetScript", "SweetSyntax", "UnityScript")
+
+if (name isnotoneof otherValue, 3.5, false)
+</pre>
+						</td>
+						<td>
+<pre>
+if (name == "SweetScript" || name ==  "SweetSyntax" || name ==  "UnityScript")
+
+if (name != otherValue && name !=  3.5 && name !=  false)
+</pre>
+						</td>
+					</tr>
+				</table>
+
+			<!--
+			<h3 id="conditions">Helper methods</h3>
+
+				<p>
+					Helper methods are aliases that you can set for methods from the Unity or Mono API.
+					<br>
+					To set up aliases, locate the file "SweetScriptHelperMethods.txt" in your project folder (should be in "Assets/SweetScriptForUnity") and follow the instruction below (you should find the same within the file). <br>
+					<br>
+
+				</p>
+			<pre class="code">
+			// this is a comment, it is ignored
+			// empty lines are also ignored
+
+			// to set an alias for a method, just follow this template :
+			// [name you want] = [original name]
+
+			// ie :
+			LogError = Debug.LogError
+			GLButton = GUILayout.Button
+			GLMaxWidth = GUILayout.MaxWidth
+			FileExists = File.Exists
+			</pre>
+
+				<table class="after-before-table">
+					<tr>
+						<th>SweetScript</th>
+						<th>UnityScript</th>
+					</tr>
+					<tr>
+						<td>
+			<pre>
+			if (GLButton ("Log Error")) {
+				LogError "Something is wrong";
+			}
+
+			// you can also use the aliases without the parenthesis
+			if (FileExists path)
+			</pre>
+						</td>
+						<td>
+			<pre>
+			if (teaScript == "useful" && meHappy != false)
+
+			while (! doStopLoop)
+			</pre>
+						</td>
+					</tr>
+				</table>
+			-->
+
+
+		<footer>
+			<br><br>
+			<p>
+				<a href="#header" title="Go back to the top">Go back to Top</a> | 
+				<a href="../../../en" title="Go back to the main website">Go back to Florent-Poujol.fr/en</a>
+			</p>
+		</footer>
+
+	</section> <!-- end #manual_content -->
+</body>
+</html>

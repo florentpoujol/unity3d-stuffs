@@ -1,0 +1,214 @@
+/*****************************************
+		SweetScript example file
+*****************************************/
+
+class SweetScript extends MonoBehaviour {
+
+	// Data Types
+		
+		// You can use "string" instead of "String"
+		// and "bool" instead of "boolean"
+		var aString: string = "a string";
+		var anotherString: str = "";
+		var aBoolean: bool = true;
+ 
+
+		// You can use generic collections with a C#-like syntax 
+		// (without the dot before and opening chevron 
+		// and without the obligatory space between two clising chevron)
+		var thisIsADico = Dictionary<string, List<bool>> ();
+	
+ 
+	// Variable declaration
+		
+		// You can declare a variable of type char if it's value consiste only 
+		// of one single character surounded by single quotation marks :
+		var aSingleCharacter = 'a';
+		var otherSingleCharacter: char = 'b';
+
+		// You can set multiple variables of the same type in a single	line, while setting their value
+		// Setting the variables type is mandatory
+		var: boolean name1, name2= false  , name3,name4 =true;
+		protected var: string text1='false' ,text2 = "another String";
+
+		// New object instanciation syntax
+		var thisIsADico new Dictionary<string, List<bool>>;
+		var store new Hashtable (thisIsADico);
+		
+
+	// Properties declaration
+	// You NEED to explicitely declare your class if you want to use properties
+
+		// defaults get/set accessors
+		health: double = 0.0;
+
+		prop Health;
+		prop Health: double;
+		
+
+		// default get accessors (read-only property)
+		mana: int; 
+
+		property Mana get;
+		prop Mana: int get; 
+		
+		
+		// default set accessors
+		iDontWantToBeRead : string = "";
+
+		prop IDontWantToBeRead set;
+		property IDontWantToBeRead: String set;
+		
+
+		// custom accessors
+
+		prop Health {
+			// default getter. Note that there is no semicolon
+			get 
+
+			set { // custom setter
+				if (value > maxHealth)
+					value = maxHealth;
+				else if (value < 0)
+					value = 0;
+			}
+		}
+
+		prop PlayerAltitude: float {
+			// custom getter
+			get {
+				return Vector3.Distance (transform.position, ground.transform.position);
+			}
+		}
+
+		property PlayerStringId {
+			set { // PlayerType = "Class Pseudo";
+				string[] strings = value.Split (' ');
+				m_playerClass = strings[0].Trim ();
+				m_playerName = strings[1].Trim ();
+			}
+
+			get {
+				return m_playerClass+" "+m_playerName;
+			}
+		}
+
+
+	// Function declarations
+
+		// You can use the "func" keyword instead of "function"
+		func Start () {}
+
+		// The parenthesis are optionnal if there is no parameters
+		function Update {}
+
+		func GetMeSomething: string {
+			return "Here, take a piece of SweetScript, it's really sweet !";
+		}
+}
+
+// You can create a struct with the "struct" keyword.
+struct aStruct 
+{
+	// you can use the "constructor" keyword, just like in classes
+	constructor (name1: string) {}
+
+	constructor (name1: string, name2: bool) {
+		constructor (name1);
+	}
+}
+
+interface Int {}
+interface Int2 {}
+
+class SweetScript2 
+extends SweetScript 
+implements Int ,Int2{
+
+	// default constructor
+	constructor {
+		// default parent's constructor
+		parent;
+		parent ( something) ;
+
+		// works outside a constructor, but only in classes that inherits from a parent
+		parent.DoSomething ();
+	}
+
+	// another constructor of this class
+	constructor (name1) {}
+
+	// and yet another one
+	constructor (name1: string, name2: bool) {
+		// call another construtcor in this class
+		constructor (name1);
+
+		// call the default constructor :
+		constructor;
+		constructor ();
+	}
+
+
+	func Loops {
+		// generic for(;;) loop 
+		// (for|foreach) [(] [var] <varName>[: type] [from <value>] to <value> [step <value>] [)]
+		// the loop : for (var i: int = 0; i<=10; i++)
+		// can be written :
+		// "for i to 10"  or  "foreach (var i: int from 0 to 10 step 1)"
+		foreach (i from 0 to 10 step 2) {}
+
+		for j: float from -5.2 to 52
+			
+		foreach var k: int to i step -2
+		{}
+
+
+		// boo-like syntax
+		foreach var i in range (10,20,2)
+
+		for (i: float in range(10.0,20.5)) {}
+
+
+		// for(;;) loop with arrays (index will always be an int)
+		foreach (index i in anArray)
+			someVariable = anArray[i];
+
+		for (index i in col aCollection)
+		{}
+
+		foreach index i in collection aCollection {}
+			
+
+		// for( in ) loop with arrays/collections
+		for entry in aCollection{}
+			
+		foreach entry: type in aCollection
+			
+	}
+
+
+	func Conditions () {
+		// switch
+		switch someVariable {
+			if 0: ...;
+			if 1: 
+				...;
+				...;
+			if Enum.Option: ...; 
+ 
+			else: "meh wathever";
+		}
+
+		// new operators and, or, not, is isnot
+		if (teaScript is "great" and youLikeIt isnt false or isTreu)
+
+		while (not doStopLoop)
+		{}
+
+		// isoneof and isnotoneof keyword
+		if (name isoneof "TeaScript", "Coffee Script", "UnityScript") {}
+
+		if (name isnotoneof otherValue, 3.5, false)
+		{} 	
+	}
+}   

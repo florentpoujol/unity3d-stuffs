@@ -1,0 +1,93 @@
+
+header {
+	width: 100%;
+	text-align: center;
+}
+
+#sidebar {
+	position: fixed;
+	top:0;
+	width: 200px;
+	padding: 0;
+	margin: 0;
+}
+#sidebar ul {	
+	padding: 15px;
+	padding-top: 0;
+	margin-bottom: 0px;
+	padding-bottom: 5px;
+}
+#sidebar h2 {
+	margin-top: 5px;
+}
+
+#manual_content {
+	margin-top: 75px;
+	margin-left: 200px;
+	border-left: 2px dashed rgb(200,200,200);
+	padding-left: 10px;
+}
+#manual_content h2 {
+	border-bottom: 1px solid black;
+}
+#manual_content h3 {
+	margin-left: 20px;
+	margin-right: 20px;
+	color: rgb(100,100,100);
+	border-bottom: 1px dashed rgb(100,100,100);
+}
+#manual_content hr {display: none;}
+
+hr {
+	border:0;
+	border-top: 2px dashed rgb(200,200,200);
+
+}
+
+table, tr, th, td {
+	border: 1px solid rgb(180,180,180);
+	border-collapse: collapse;
+}
+
+.after-before-table td, .code {
+	background-color: rgb(230,230,230);
+	padding: 5px;
+}
+.code {
+	border: 1px solid rgb(180,180,180);
+}
+
+
+footer {
+	text-align: center;
+}
+
+
+
+/* Unity webplayer style */
+
+
+div.webplayer_content {
+	margin: auto;
+	width: 850px;
+}
+div.missing {
+	margin: auto;
+	position: relative;
+	top: 50%;
+	width: 193px;
+}
+div.missing a {
+	height: 63px;
+	position: relative;
+	top: -31px;
+}
+div.missing img {
+	border-width: 0px;
+}
+div#unityPlayer {
+	cursor: default;
+	height: 400px;
+	width: 850px;
+}
+
